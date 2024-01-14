@@ -1,3 +1,12 @@
+const express = require('express');
+
+const router = express.Router();
+const notes = [];
+
+router.get('/create', async (req, res) => {
+	res.render('create');
+});
+
 router.post('/create', async (req, res) => {
 	const note = req.body.note;
 	notes.push(note);
