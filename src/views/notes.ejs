@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/notes/create">Create</a></li>
+            <li><a href="/notes/all">Notes</a></li>
+        </ul>
+    </nav>
+    <h1>Notes Page</h1>
+    <% if (notes.length> 0) { %>
+        <ul>
+            <% for (let note of notes) { %>
+                <li>
+                    <%= note %>
+                </li>
+                <% } %>
+        </ul>
+        <% } else { %>
+            <h2>You don't have any notes yes!</h2>
+            <% } %>
+</body>
+
+</html>
