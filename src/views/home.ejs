@@ -1,10 +1,11 @@
-<%- include('../includes/head.ejs') %>
+<%- include('./includes/head.ejs') %>
 </head>
 
     <body>
-        <%- include('../includes/navigation.ejs') %>
+        <%- include('./includes/navigation.ejs') %>
+
         <main>
-            <h1>Notes Page</h1>
+            <h1>Home Page</h1>
             <% if (notes.length> 0) { %>
                 <ul>
                     <% for (let note of notes) { %>
@@ -16,7 +17,8 @@
                 <% } else { %>
                     <h2>You don't have any notes yes!</h2>
                     <% } %>
-                    
+            
+            <div class="create-btn"><a href="notes/create">Add</a></div>
         </main>
     </body>
 
