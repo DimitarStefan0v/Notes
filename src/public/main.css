@@ -5,5 +5,14 @@
 }
 
 body {
-    background-color: red;
+    padding: 0;
+    margin: 0;
+}
+
+body, input, textarea, button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+main {
+    margin: 1rem;
 }
