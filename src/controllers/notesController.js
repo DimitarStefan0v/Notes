@@ -4,7 +4,8 @@ const router = express.Router();
 const notes = [];
 
 router.get('/create', async (req, res) => {
-	res.render('create');
+    const pageTitle = 'Create';
+	res.render('notes/create', {pageTitle});
 });
 
 router.post('/create', async (req, res) => {
@@ -14,7 +15,8 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/all', async (req, res) => {
-	res.render('notes', { notes });
+    const pageTitle = 'Notes';
+	res.render('notes/notes', { notes, pageTitle });
 });
 
 module.exports = router;
