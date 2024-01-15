@@ -1,25 +1,27 @@
 <%- include('./includes/head.ejs') %>
-</head>
+    </head>
 
     <body>
         <%- include('./includes/navigation.ejs') %>
 
-        <main>
-            <h1>Home Page</h1>
-            <% if (notes.length> 0) { %>
-                <ul>
-                    <% for (let note of notes) { %>
-                        <li>
-                            <%= note %>
-                        </li>
-                        <% } %>
-                </ul>
-                <% } else { %>
-                    <h2>You don't have any notes yes!</h2>
-                    <% } %>
-            
-            <div class="create-btn"><a href="notes/create">Add</a></div>
-        </main>
+            <main>
+                <div class="notes-wrapper">
+                    <% if (notes.length> 0) { %>
+                        <h2>My notes</h2>
+                        <ul class="notes-list">
+                            <% for (let note of notes) { %>
+                                <li class="notes-list__item">
+                                    <%= note %>
+                                </li>
+                                <% } %>
+                        </ul>
+                        <% } else { %>
+                            <h2>You don't have any notes yet!</h2>
+                            <% } %>
+
+                    <div class="create-btn"><a href="notes/create">Add</a></div>
+                </div>
+            </main>
     </body>
 
-</html>
+    </html>
