@@ -3,16 +3,14 @@ const path = require('path');
 const express = require('express');
 
 const expressConfig = require('./config/expressConfig');
+const ejsConfig = require('./config/ejsConfig');
 const dbConnect = require('./config/dbConfig');
 
 const app = express();
 const PORT = 5000;
 
-// ejs config
-app.set('view engine', 'ejs');
-app.set('views', 'src/views');
+ejsConfig(app);
 
-// express config
 expressConfig(app);
 
 dbConnect()
