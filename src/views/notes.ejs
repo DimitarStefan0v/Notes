@@ -1,0 +1,27 @@
+<%- include('./includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('./includes/navigation.ejs') %>
+
+        <main>
+            <div class="notes-wrapper">
+                <% if (notes.length> 0) { %>
+                    <h2>My notes</h2>
+                    <ul class="notes-list">
+                        <% for (let note of notes) { %>
+                            <li class="notes-list__item">
+                                <%= note %>
+                            </li>
+                            <% } %>
+                    </ul>
+                    <% } else { %>
+                        <h2>You don't have any notes yet!</h2>
+                        <% } %>
+
+                <div class="create-btn"><a href="/notes/create">Add</a></div>
+            </div>
+        </main>
+    </body>
+
+    </html>

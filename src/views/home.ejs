@@ -5,22 +5,11 @@
         <%- include('./includes/navigation.ejs') %>
 
             <main>
-                <div class="notes-wrapper">
-                    <% if (notes.length> 0) { %>
-                        <h2>My notes</h2>
-                        <ul class="notes-list">
-                            <% for (let note of notes) { %>
-                                <li class="notes-list__item">
-                                    <%= note %>
-                                </li>
-                                <% } %>
-                        </ul>
-                        <% } else { %>
-                            <h2>You don't have any notes yet!</h2>
-                            <% } %>
-
-                    <div class="create-btn"><a href="notes/create">Add</a></div>
-                </div>
+                <header class="home-header">
+                    <h1>Write your thoughts down as they come to you.</h1>
+                    <p>Notes is a simple to use free note taking app made with Node.js, EJS and MongoDB.</p>
+                    <div class="create-btn"><a href="/notes/create">Try Notes, it's FREE</a></div>
+                </header>
             </main>
     </body>
 

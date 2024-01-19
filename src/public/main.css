@@ -12,7 +12,7 @@ body {
     padding: 0;
     margin: 0;
     height: 100%;
-    background-color: rgba(153, 255, 133, 0.927);
+    background-color: rgb(115, 205, 98);
 }
 
 body, input, textarea, button {
@@ -28,61 +28,47 @@ main {
     height: 100%;
     max-width: 1020px;
     margin: 0 auto;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.nav {
+.main-nav {
     background-color: black;
     height: 4rem;
 }
 
-.nav div {
+.nav-links {
     height: 100%;
-    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+    font-size: 1.3rem;
 }
 
-.nav a {
+.nav-links__item a {
     color: white;
     text-decoration: none;
+}
+
+.nav-links__item .active {
+    color: yellow;
+    border-bottom: 3px solid yellow;
 }
 
 .notes-wrapper {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
-}
-
-.create-btn {
-    background-color: black;
-    border-radius: 40px;
-    width: fit-content;
-    position: absolute;
-    bottom: -60px;
-    right: 115px;
-}
-
-.create-btn a {
-    color: white;
-    text-decoration: none;
-    padding: 0;
-    display: block;
-    height: 100%;
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
+    width: 50%;
 }
 
 .notes-list {
     list-style-type: none;
-    width: 70%;
     overflow: hidden;
+    width: 100%;
 }
 
 .notes-list__item {
@@ -90,8 +76,34 @@ main {
     padding: 0.5rem;
     background-color: white;
     border-radius: 8px;
+    width: 100%;
 }
 
 .notes-list__item:hover {
-    background-color: #F8FAE5;
+    background-color: #d2d4c0;
+}
+
+.create-btn {
+    background-color: black;
+    border-radius: 40px;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+.create-btn a {
+    padding: 0.7rem;
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+}
+
+.create-btn a:hover {
+    color: yellow;
+}
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }

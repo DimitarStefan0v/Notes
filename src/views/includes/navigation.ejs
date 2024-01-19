@@ -1,3 +1,13 @@
-<nav class="nav">
-    <div><a href="/">Notes</a></div>
+<nav class="main-nav">
+	<ul class="nav-links">
+		<li class="nav-links__item">
+			<a class="<%= path === '/' ? 'active': '' %>" href="/">Home</a>
+		</li>
+		<li class="nav-links__item">
+            <a class="<%= path === '/notes/all' ? 'active' : '' %>" href="/notes/all">Notes</a>
+        </li>
+        <li class="nav-links__item">
+            <a class="<%= path === '/notes/create' ? 'active' : '' %>" href="/notes/create">Add</a>
+        </li>
+	</ul>
 </nav>
