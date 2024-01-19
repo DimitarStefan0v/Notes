@@ -12,17 +12,22 @@ router.get('/create', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-	const title = req.body.title;
-	const desc = req.body.description;
-	const note = { title: title, description: desc };
-    notesService.create(note);
-	res.redirect('/');
+	const { title, description } = req.body;
+    try {
+        await notesService.create({ title, description });
+    } catch (error) {
+        console.log(error.message);
+    }
+
+	res.redirect('/notes/all');
 });
 
 router.get('/all', async (req, res) => {
 	const pageTitle = 'Notes';
 	const path = '/notes/all';
-	res.render('notes', { pageTitle, path });
+	const notes = await notesService.getAll();
+
+	res.render('notes', { pageTitle, path, notes });
 });
 
 module.exports = router;
