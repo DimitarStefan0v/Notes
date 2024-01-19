@@ -7,3 +7,5 @@ exports.create = async (noteData) => {
 
     return note;
 };
+
+exports.getAll = async () => await Note.find().lean();

@@ -58,31 +58,6 @@ main {
     border-bottom: 3px solid yellow;
 }
 
-.notes-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-}
-
-.notes-list {
-    list-style-type: none;
-    overflow: hidden;
-    width: 100%;
-}
-
-.notes-list__item {
-    margin: 0.2rem;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 8px;
-    width: 100%;
-}
-
-.notes-list__item:hover {
-    background-color: #d2d4c0;
-}
-
 .create-btn {
     background-color: black;
     border-radius: 40px;
@@ -106,49 +81,4 @@ main {
     flex-direction: column;
     align-items: center;
     height: 100%;
-}
-
-.create-form {
-    width: 250px;
-    position: relative;
-}
-
-.form-control {
-    margin: 1rem 0;
-}
-
-.form-control label,
-.form-control input,
-.form-control textarea {
-    display: block;
-    width: 100%;
-    margin-bottom: 0.3rem;
-}
-
-.form-control input,
-.form-control textarea {
-    border: 1px solid #a1a1a1;
-    border-radius: 8px;
-    padding: 0.5rem;
-}
-
-.form-control input:focus,
-.form-control textarea:focus {
-    outline-color: #00695c;
-}
-
-.create-note-btn {
-    border: none;
-    background: black;
-    color: white;
-    font-size: 1.3rem;
-    padding: 0.3rem;
-    border-radius: 8px;
-    position: absolute;
-    bottom: -30px;
-    right: 0;
-}
-
-.create-note-btn:hover {
-    color: yellow;
 }

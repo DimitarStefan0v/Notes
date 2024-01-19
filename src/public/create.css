@@ -1,0 +1,44 @@
+.create-form {
+    width: 250px;
+    position: relative;
+}
+
+.form-control {
+    margin: 1rem 0;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.3rem;
+}
+
+.form-control input,
+.form-control textarea {
+    border: 1px solid #a1a1a1;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+    outline-color: #00695c;
+}
+
+.create-note-btn {
+    border: none;
+    background: black;
+    color: white;
+    font-size: 1.3rem;
+    padding: 0.3rem;
+    border-radius: 8px;
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+}
+
+.create-note-btn:hover {
+    color: yellow;
+}

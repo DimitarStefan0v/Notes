@@ -1,4 +1,5 @@
 <%- include('./includes/head.ejs') %>
+<link rel="stylesheet" href="/notes.css">
     </head>
 
     <body>
@@ -7,14 +8,12 @@
         <main>
             <div class="notes-wrapper">
                 <% if (notes.length> 0) { %>
-                    <h2>My notes</h2>
-                    <ul class="notes-list">
                         <% for (let note of notes) { %>
-                            <li class="notes-list__item">
-                                <%= note %>
-                            </li>
+                            <div class="note-item">
+                                <div class="note-item-title"><%= note.title %></div>
+                                <div class="note-item-desc"><%= note.description %></div>
+                            </div>
                             <% } %>
-                    </ul>
                     <% } else { %>
                         <h2>You don't have any notes yet!</h2>
                         <% } %>
