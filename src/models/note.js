@@ -8,7 +8,6 @@ const noteSchema = new Schema({
 		required: [true, 'Title is required'],
 		minLength: [4, 'Title should be between 4 and 30 characters long'],
 		maxLength: [30, 'Title should be between 4 and 30 characters long'],
-        match: [/^[A-Za-z]+$/, 'Title must contain only letters (A-Z)'],
 	},
 	description: {
 		type: String,

@@ -1,26 +1,35 @@
 <%- include('./includes/head.ejs') %>
-<link rel="stylesheet" href="/notes.css">
+    <link rel="stylesheet" href="/notes.css">
     </head>
 
     <body>
         <%- include('./includes/navigation.ejs') %>
 
-        <main>
-            <div class="notes-wrapper">
-                <% if (notes.length> 0) { %>
-                        <% for (let note of notes) { %>
-                            <div class="note-item">
-                                <div class="note-item-title"><%= note.title %></div>
-                                <div class="note-item-desc"><%= note.description %></div>
-                            </div>
+            <main>
+                <div>
+                    <div class="heading">
+                        <h2>Hey, Username</h2>
+                        <div class="add-note"><a href="/notes/create">+ New Note</a></div>
+                    </div>
+                    <% if (notes.length> 0) { %>
+                        <div class="notes-wrapper">
+                            <% for (let note of notes) { %>
+                                <div class="note-item">
+                                    <div class="note-item-title">
+                                        <%= note.title.length> 20 ? note.title.substring(0, 20) + '...' : note.title %>
+                                    </div>
+                                    <div class="note-item-desc">
+                                        <%= note.description.length> 150 ? note.description.substring(0, 150) + '...' :
+                                            note.description %>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                        <% } else { %>
+                            <p class="notes-info">You don't have any notes yet!</p>
                             <% } %>
-                    <% } else { %>
-                        <h2>You don't have any notes yet!</h2>
-                        <% } %>
-
-                <div class="create-btn"><a href="/notes/create">Add</a></div>
-            </div>
-        </main>
+                </div>
+            </main>
     </body>
 
     </html>
