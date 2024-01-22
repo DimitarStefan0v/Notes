@@ -13,11 +13,15 @@ router.get('/create', async (req, res) => {
 
 router.post('/create', async (req, res) => {
 	const { title, description } = req.body;
-    try {
-        await notesService.create({ title, description });
-    } catch (error) {
-        console.log(error.message);
-    }
+	const pageTitle = 'Create';
+	const path = '/notes/create';
+
+	try {
+		await notesService.create({ title, description });
+	} catch (error) {
+		console.log(error.message);
+		return res.render('create', { pageTitle, path });
+	}
 
 	res.redirect('/notes/all');
 });
