@@ -8,4 +8,6 @@ exports.create = async (noteData) => {
     return note;
 };
 
-exports.getAll = async () => await Note.find().lean();
+exports.getAll = () => Note.find().lean();
+
+exports.getById = (noteId) => Note.findById(noteId).lean();
