@@ -60,12 +60,23 @@ router.post('/:noteId/update', async (req, res) => {
 	try {
 		await notesService.update(noteId, note);
 
-        // TODO: db validation is not triggered on update
+		// TODO: db validation is not triggered on update
 	} catch (error) {
 		return res.render('notes/update', { pageTitle, path, note });
 	}
 
 	res.redirect(`/notes/${noteId}/details`);
+});
+
+router.get('/:noteId/delete', async (req, res) => {
+    try {
+        await notesService.delete(req.params.noteId);
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect('/');
+    }
+
+    res.redirect('/notes/all');
 });
 
 module.exports = router;
