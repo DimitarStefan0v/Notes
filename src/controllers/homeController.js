@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
     const pageTitle = 'Home';
     const path = '/';
-	res.render('home', { pageTitle, path });
+	res.render('home/home', { pageTitle, path });
 });
 
 module.exports = router;
