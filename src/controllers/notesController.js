@@ -43,11 +43,29 @@ router.get('/:noteId/details', async (req, res) => {
 });
 
 router.get('/:noteId/update', async (req, res) => {
-    const pageTitle = 'Note Update';
-    const path = '/notes/all';
-    const note = await notesService.getById(req.params.noteId);
+	const pageTitle = 'Note Update';
+	const path = '/notes/all';
+	const note = await notesService.getById(req.params.noteId);
 
-    res.render('notes/update', { pageTitle, path, note });
+	res.render('notes/update', { pageTitle, path, note });
+});
+
+router.post('/:noteId/update', async (req, res) => {
+	const pageTitle = 'Note Update';
+	const path = '/notes/all';
+	const noteId = req.params.noteId;
+	const { title, description } = req.body;
+	const note = { title, description };
+
+	try {
+		await notesService.update(noteId, note);
+
+        // TODO: db validation is not triggered on update
+	} catch (error) {
+		return res.render('notes/update', { pageTitle, path, note });
+	}
+
+	res.redirect(`/notes/${noteId}/details`);
 });
 
 module.exports = router;
