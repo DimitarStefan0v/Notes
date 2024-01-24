@@ -11,3 +11,5 @@ exports.create = async (noteData) => {
 exports.getAll = () => Note.find().lean();
 
 exports.getById = (noteId) => Note.findById(noteId).lean();
+
+exports.update = (noteId, noteData) => Note.findByIdAndUpdate(noteId, noteData);
