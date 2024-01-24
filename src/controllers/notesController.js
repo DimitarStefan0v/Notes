@@ -37,9 +37,17 @@ router.get('/all', async (req, res) => {
 router.get('/:noteId/details', async (req, res) => {
 	const pageTitle = 'Note Details';
 	const path = '/notes/all';
-    const note = await notesService.getById(req.params.noteId);
-    
+	const note = await notesService.getById(req.params.noteId);
+
 	res.render('notes/details', { pageTitle, path, note });
+});
+
+router.get('/:noteId/update', async (req, res) => {
+    const pageTitle = 'Note Update';
+    const path = '/notes/all';
+    const note = await notesService.getById(req.params.noteId);
+
+    res.render('notes/update', { pageTitle, path, note });
 });
 
 module.exports = router;
