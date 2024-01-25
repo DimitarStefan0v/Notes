@@ -52,7 +52,7 @@ main {
     color: white;
     text-decoration: none;
 }
-
+ 
 .nav-links__item .active {
     color: yellow;
     border-bottom: 3px solid yellow;

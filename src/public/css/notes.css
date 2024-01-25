@@ -47,6 +47,11 @@
     border-radius: 8px;
 }
 
+.note-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .note-item-title,
 .note-item-desc {
     background-color: white;
