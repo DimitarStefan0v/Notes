@@ -26,7 +26,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required'],
         minLength: [6, 'Password must be at least 6 characters long'],
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        validate: {
+            validator: function(value) {
+                return value === this.repeatPassword;
+            },
+            message: 'Password and repeat password don\'t match'
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     }
 });
 
