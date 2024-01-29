@@ -47,7 +47,7 @@
     left: 0;
 }
 
-.register-btn,
+.btn,
 .create-note-btn,
 .delete-note-btn {
     border: none;
@@ -61,7 +61,7 @@
     right: 0;
 }
 
-.register-btn:hover,
+.btn:hover,
 .create-note-btn:hover,
 .update-note-btn:hover,
 .delete-note-btn:hover {
