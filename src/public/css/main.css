@@ -39,6 +39,20 @@ main {
     height: 4rem;
 }
 
+.nav-wrapper {
+    height: 100%;
+    max-width: 1168px;
+    padding: 1rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.note-img {
+    height: 55px;
+}
+
 .nav-links {
     height: 100%;
     display: flex;
@@ -46,6 +60,7 @@ main {
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
+    list-style-type: none;
 }
 
 .nav-links__item a {
