@@ -49,6 +49,7 @@ router.post('/:noteId/update', async (req, res) => {
 
 		// TODO: db validation is not triggered on update
 	} catch (error) {
+        console.log(error.message);
 		return res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
 	}
 
