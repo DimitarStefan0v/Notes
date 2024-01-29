@@ -5,7 +5,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Username is required'],
         minLength: [4, 'Username must be at least 4 '],
-        
+        validate: {
+            validator: function(value) {
+                return /^\s*$/.test(value);
+            },
+            message: 'Username must contains characters different from whitespace'
+        }
     },
     email: {
         type: String,
