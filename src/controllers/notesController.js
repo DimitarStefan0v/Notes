@@ -52,7 +52,7 @@ router.post('/:noteId/update', async (req, res) => {
 		return res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
 	}
 
-	res.redirect(`/notes/${noteId}/details`);
+	res.redirect('/notes/all');
 });
 
 router.get('/:noteId/delete', async (req, res) => {
