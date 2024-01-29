@@ -1,8 +1,8 @@
 const express = require('express');
 
-const router = express.Router();
-
 const notesService = require('../services/notesService');
+
+const router = express.Router();
 
 router.get('/create', (req, res) => {
 	res.render('notes/create', { pageTitle: 'Create Note', path: '/create' });
