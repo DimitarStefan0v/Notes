@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema({
         minLength: [4, 'Username must be at least 4 '],
         validate: {
             validator: function(value) {
-                return /^\s*$/.test(value);
+                return !/^\s*$/.test(value);
             },
-            message: 'Username must contains characters different from whitespace'
+            message: 'Username cannot be only whitespace'
         }
     },
     email: {
