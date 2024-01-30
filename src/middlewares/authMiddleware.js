@@ -2,6 +2,7 @@ const jwtPromises = require('../lib/jwt');
 
 exports.auth = async (req, res, next) => {
 	const token = req.cookies['auth'];
+    res.locals.isAuthenticated = false;
 
 	if (token) {
 		try {
@@ -15,11 +16,17 @@ exports.auth = async (req, res, next) => {
             next();
 		} catch (error) {
 			res.clearCookie('auth');
-            res.locals.isAuthenticated = false;
 			res.redirect('/users/login');
 		}
 	} else {
-        res.locals.isAuthenticated = false;
 		next();
 	}
+};
+
+exports.isAuth = (req ,res, next) => {
+    if (!req.user) {
+        return res.redirect('/users/login');
+    }
+
+    next();
 };
