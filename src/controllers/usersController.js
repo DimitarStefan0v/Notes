@@ -12,11 +12,10 @@ router.post('/register', async (req, res) => {
 	const { username, email, password, repeatPassword } = req.body;
 	try {
 		await usersService.register({ username, email, password, repeatPassword });
-        
 	} catch (error) {
 		//TODO: pass the error message in the view
 		console.log(error.message);
-        return res.redirect('/users/register');
+		return res.redirect('/users/register');
 	}
 
 	res.redirect('/');
@@ -30,8 +29,8 @@ router.post('/login', async (req, res) => {
 	const { username, password } = req.body;
 
 	try {
-		const user = await usersService.login(username, password);
-		console.log(user);
+		const token = await usersService.login(username, password);
+		res.cookie('auth-cookie', token, { httpOnly: true });
 	} catch (error) {
 		//TODO: pass the error message in the view
 		console.log(error.message);
