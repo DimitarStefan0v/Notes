@@ -10,12 +10,14 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
 	const { username, email, password, repeatPassword } = req.body;
-    try {
-	await usersService.register({ username, email, password, repeatPassword });
+	try {
+		await usersService.register({ username, email, password, repeatPassword });
         
-    } catch (error) {
-        console.log(error.message);
-    }
+	} catch (error) {
+		//TODO: pass the error message in the view
+		console.log(error.message);
+        return res.redirect('/users/register');
+	}
 
 	res.redirect('/');
 });
@@ -24,9 +26,18 @@ router.get('/login', (req, res) => {
 	res.render('users/login', { pageTitle: 'Login', path: '/login' });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
 	const { username, password } = req.body;
-	console.log(username, password);
+
+	try {
+		const user = await usersService.login(username, password);
+		console.log(user);
+	} catch (error) {
+		//TODO: pass the error message in the view
+		console.log(error.message);
+		return res.redirect('/users/login');
+	}
+
 	res.redirect('/');
 });
 

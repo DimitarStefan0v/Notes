@@ -32,6 +32,8 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
+// TODO: validate that there is no user with the same username in db
+
 userSchema.virtual('repeatPassword').set(function (value) {
 	if (value !== this.password) {
 		throw new mongoose.MongooseError(
@@ -42,7 +44,7 @@ userSchema.virtual('repeatPassword').set(function (value) {
 
 userSchema.pre('save', async function () {
     const hash = await bcrypt.hash(this.password, 10);
-    
+
     this.password = hash;
 });
 
