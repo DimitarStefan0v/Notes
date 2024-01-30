@@ -12,7 +12,7 @@ router.post('/create', async (req, res) => {
 	const { title, description } = req.body;
 
 	try {
-		await notesService.create({ title, description });
+		await notesService.create({ title, description, author: req.user._id });
 	} catch (error) {
 		console.log(error.message);
 		return res.render('notes/create', { pageTitle: 'Create Note', path: '/create' });

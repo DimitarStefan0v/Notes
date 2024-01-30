@@ -5,12 +5,16 @@ const noteSchema = new mongoose.Schema({
 		type: String,
 		required: [true, 'Title is required'],
 		minLength: [4, 'Title should be at least 4 characters long'],
-		maxLength: [30, 'Title can\'t be more than 30 characters long'],
+		maxLength: [30, "Title can't be more than 30 characters long"],
 	},
 	description: {
 		type: String,
 		required: [true, 'Description is required'],
 		minLength: [5, 'Description should be at least 5 characters long'],
+	},
+	author: {
+		type: mongoose.Types.ObjectId,
+		ref: 'User',
 	},
 });
 
