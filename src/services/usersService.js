@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv').config();
 
 const jwtPromises = require('../lib/jwt');
 
