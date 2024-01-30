@@ -8,7 +8,7 @@
             <main>
                 <div>
                     <div class="heading">
-                        <h2>Hey, Username</h2>
+                        <h2>Hey, <%= isAuthenticated ? user.username : 'Guest User' %></h2>
                         <div class="add-note"><a href="/notes/create">+ New Note</a></div>
                     </div>
                     <% if (notes.length> 0) { %>

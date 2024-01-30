@@ -33,13 +33,13 @@ router.get('/:noteId/details', async (req, res) => {
 	res.render('notes/details', { pageTitle: 'Note Details', path: '', note });
 });
 
-router.get('/:noteId/update', async (req, res) => {
+router.get('/:noteId/edit', async (req, res) => {
 	const note = await notesService.getById(req.params.noteId);
 
 	res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
 });
 
-router.post('/:noteId/update', async (req, res) => {
+router.post('/:noteId/edit', async (req, res) => {
 	const noteId = req.params.noteId;
 	const { title, description } = req.body;
 	const note = { title, description };
