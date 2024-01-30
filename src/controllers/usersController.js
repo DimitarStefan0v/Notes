@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 
 	try {
 		const token = await usersService.login(username, password);
-		res.cookie('auth-cookie', token, { httpOnly: true });
+		res.cookie('auth', token, { httpOnly: true });
 	} catch (error) {
 		//TODO: pass the error message in the view
 		console.log(error.message);
