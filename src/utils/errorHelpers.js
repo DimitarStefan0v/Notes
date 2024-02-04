@@ -7,7 +7,10 @@ exports.extractErrorMessages = (err) => {
 		} else {
             return [err.message];
 		}
-	} else {
+	} else if (err instanceof Error) {
 		return [err.message];
-	}
+	} else {
+        // In case we throw an array of messages (not as error) 
+        return err;
+    }
 };
