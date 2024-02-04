@@ -9,19 +9,19 @@
                 <form method="POST" class="form">
                     <div class="form-control">
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Enter username here" />
+                        <input type="text" id="username" name="username" placeholder="Enter username here" value="<%= userData.username %>" />
                     </div>
                     <div class="form-control">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter email here" />
+                        <input type="email" id="email" name="email" placeholder="Enter email here" value="<%= userData.email %>" />
                     </div>
                     <div class="form-control">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter password here" />
+                        <input type="password" id="password" name="password" placeholder="Enter password here" value="<%= userData.password %>" />
                     </div>
                     <div class="form-control">
-                        <label for="repeat-password">Email</label>
-                        <input type="password" id="repeat-password" name="repeatPassword" placeholder="Confirm password here" />
+                        <label for="repeat-password">Repeat Password</label>
+                        <input type="password" id="repeat-password" name="repeatPassword" placeholder="Confirm password here" value="<%= userData.repeatPassword %>" />
                     </div>
                     <input class="btn" type="submit" value="Register" />
                 </form>
