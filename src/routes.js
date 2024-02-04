@@ -10,4 +10,8 @@ router.use(homeController);
 router.use('/notes', notesController);
 router.use('/users', usersController);
 
+router.get('*', (req, res) => {
+    res.render('404', { pageTitle: 'Register', path: '', });
+});
+
 module.exports = router;
