@@ -34,6 +34,26 @@ main {
     align-items: center;
 }
 
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 500px;
+    width: 100%;
+}
+
+.message {
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+
+
+
+
 .main-nav {
     background-color: black;
     height: 4rem;
