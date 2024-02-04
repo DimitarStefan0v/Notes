@@ -9,10 +9,10 @@ function isRequired(value) {
 	return true;
 };
 
-async function userDataValidation({ username, email, password, repeatPassword }) {
+async function registerValidation({ username, email, password, repeatPassword }) {
 	const result = {
         errors: [],
-        newUserData: { username, email, password, repeatPassword },
+        trimmedUserData: { username, email, password, repeatPassword },
     };
 
     // Checking that there is data and most importantly it is not only whitespaces
@@ -20,25 +20,25 @@ async function userDataValidation({ username, email, password, repeatPassword })
 	if (isRequired(username) === false) {
 		result.errors.push(ERROR_MESSAGES.REQUIRED('Username'));
 	} else {
-        result.newUserData.username = result.newUserData.username.trim();
+        result.trimmedUserData.username = result.trimmedUserData.username.trim();
     }
 
 	if (isRequired(email) === false) {
 		result.errors.push(ERROR_MESSAGES.REQUIRED('Email'));
 	} else {
-        result.newUserData.email = result.newUserData.email.trim();
+        result.trimmedUserData.email = result.trimmedUserData.email.trim();
     }
 
 	if (isRequired(password) === false) {
 		result.errors.push(ERROR_MESSAGES.REQUIRED('Password'));
 	} else {
-        result.newUserData.password = result.newUserData.password.trim();
+        result.trimmedUserData.password = result.trimmedUserData.password.trim();
     }
 
     if (isRequired(repeatPassword) === false) {
 		result.errors.push(ERROR_MESSAGES.REQUIRED('Repeat Password'));
 	} else {
-        result.newUserData.repeatPassword = result.newUserData.repeatPassword.trim();
+        result.trimmedUserData.repeatPassword = result.trimmedUserData.repeatPassword.trim();
     }
 
 	if (result.errors.length > 0) {
@@ -47,13 +47,13 @@ async function userDataValidation({ username, email, password, repeatPassword })
 
     // Checking that there is no user with the same username or email in db
 
-	let user = await User.findOne({ username: result.newUserData.username });
+	let user = await User.findOne({ username: result.trimmedUserData.username });
 
 	if (user) {
 		result.errors.push(ERROR_MESSAGES.USERNAME_TAKEN);
 	}
 
-	user = await User.findOne({ email: result.newUserData.email });
+	user = await User.findOne({ email: result.trimmedUserData.email });
 
 	if (user) {
 		result.errors.push(ERROR_MESSAGES.EMAIL_TAKEN);
@@ -62,9 +62,31 @@ async function userDataValidation({ username, email, password, repeatPassword })
 	return result;
 };
 
+function loginValidation ({ username, password}) {
+    const result = {
+        errors: [],
+        trimmedUserData: { username, password },
+    };
+
+	if (isRequired(username) === false) {
+		result.errors.push(ERROR_MESSAGES.REQUIRED('Username'));
+	} else {
+        result.trimmedUserData.username = result.trimmedUserData.username.trim();
+    }
+
+    if (isRequired(password) === false) {
+		result.errors.push(ERROR_MESSAGES.REQUIRED('Password'));
+	} else {
+        result.trimmedUserData.password = result.trimmedUserData.password.trim();
+    }
+
+    return result;
+}
+
 const commonValidation = {
     isRequired,
-    userDataValidation,
-}
+    registerValidation,
+    loginValidation,
+};
 
 module.exports = commonValidation;
