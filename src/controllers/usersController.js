@@ -24,10 +24,6 @@ router.post('/register', async (req, res) => {
 	} catch (error) {
 		const messages = extractErrorMessages(error);
 
-        if (result.newUserData === undefined) {
-            result.newUserData = { username, email, password, repeatPassword };
-        }
-        
 		return res.render('users/register', {
 			pageTitle: 'Register',
 			path: '/register',

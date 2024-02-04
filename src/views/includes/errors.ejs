@@ -1,0 +1,7 @@
+<div class="messages">
+    <% if (errorMessages.length > 0) { %>
+       <% for (let message of errorMessages) { %>
+            <div class="message"><%= message %></div>
+        <% } %>
+    <% } %>
+</div>
