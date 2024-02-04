@@ -6,6 +6,13 @@
         <%- include('../includes/navigation.ejs') %>
 
             <main>
+                <div class="messages">
+                    <% if (errorMessages.length > 0) { %>
+                       <% for (let message of errorMessages) { %>
+                            <div class="message"><%= message %></div>
+                        <% } %>
+                    <% } %>
+                </div>
                 <form method="POST" class="form">
                     <div class="form-control">
                         <label for="username">Username</label>
