@@ -7,4 +7,5 @@ exports.ERROR_MESSAGES = {
     USERNAME_TAKEN: 'The username already exists',
     EMAIL_TAKEN: 'This email is already registered for different user',
     REPEAT_PASSWORD: 'Password and repeat password don\'t match',
+    INVALID_LOGIN: 'Sorry, your username or password was incorrect. Please double-check your username and password',
 };
