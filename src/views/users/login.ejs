@@ -6,14 +6,16 @@
         <%- include('../includes/navigation.ejs') %>
 
             <main>
+                <%- include('../includes/errors.ejs') %>
+
                 <form method="POST" class="form">
                     <div class="form-control">
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Enter username here" />
+                        <input type="text" id="username" name="username" placeholder="Enter username here" value="<%= userData.username %>" />
                     </div>
                     <div class="form-control">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter password here" />
+                        <input type="password" id="password" name="password" placeholder="Enter password here" value="<%= userData.password %>" />
                     </div>
                     <input class="btn" type="submit" value="Login" />
                 </form>
