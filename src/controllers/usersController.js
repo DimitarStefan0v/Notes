@@ -4,6 +4,7 @@ const router = express.Router();
 
 const usersService = require('../services/usersService');
 const { extractErrorMessages } = require('../utils/errorHelpers');
+const { userDataValidation } = require('../utils/commonValidation');
 
 router.get('/register', (req, res) => {
 	res.render('users/register', { pageTitle: 'Register', path: '/register', errorMessages: [], userData: {} });
@@ -11,18 +12,27 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
 	// TODO if users is already logged in redirect him to 404
-	const { username, email, password, repeatPassword } = req.body;
-	try {
-		await usersService.register({ username, email, password, repeatPassword });
+    const { username, email, password, repeatPassword } = req.body;
+    const result = await userDataValidation({ username, email, password, repeatPassword });
+	
+    try {
+        if (result.errors.length > 0) {
+            throw result.errors;
+        }
+
+		await usersService.register(result.newUserData);
 	} catch (error) {
-		//TODO: pass the error message in the view
 		const messages = extractErrorMessages(error);
-		console.log(messages);
+
+        if (result.newUserData === undefined) {
+            result.newUserData = { username, email, password, repeatPassword };
+        }
+        
 		return res.render('users/register', {
 			pageTitle: 'Register',
 			path: '/register',
 			errorMessages: messages,
-			userData: { username, email, password, repeatPassword },
+			userData: result.newUserData,
 		});
 	}
 
@@ -41,7 +51,8 @@ router.post('/login', async (req, res) => {
 		res.cookie('auth', token, { httpOnly: true });
 	} catch (error) {
 		//TODO: pass the error message in the view
-		console.log(error.message);
+        const messages = extractErrorMessages(error);
+		console.log(messages);
 		return res.redirect('/users/login');
 	}
 
