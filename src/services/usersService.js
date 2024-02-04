@@ -4,9 +4,10 @@ const User = require('../models/User');
 const jwtPromises = require('../lib/jwt');
 const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
-exports.register = ({ username, email, password, repeatPassword }) => User.create({ username, email, password, repeatPassword });
+exports.register = ({ username, email, password, repeatPassword }) =>
+	User.create({ username, email, password, repeatPassword });
 
-exports.login = async (username, password) => {
+exports.login = async ({ username, password }) => {
 	const user = await User.findOne({ username });
 
 	if (!user) {
@@ -24,12 +25,10 @@ exports.login = async (username, password) => {
 		username: user.username,
 		email: user.email,
 	};
-
+    
 	const token = await jwtPromises.sign(payload, process.env.JWT_SECRET, {
 		expiresIn: '2d',
 	});
 
 	return token;
 };
-
-

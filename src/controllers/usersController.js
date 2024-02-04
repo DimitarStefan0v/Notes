@@ -4,23 +4,33 @@ const router = express.Router();
 
 const usersService = require('../services/usersService');
 const { extractErrorMessages } = require('../utils/errorHelpers');
-const { userDataValidation } = require('../utils/commonValidation');
+const { registerValidation, loginValidation } = require('../utils/commonValidation');
 
 router.get('/register', (req, res) => {
-	res.render('users/register', { pageTitle: 'Register', path: '/register', errorMessages: [], userData: {} });
+	res.render('users/register', {
+		pageTitle: 'Register',
+		path: '/register',
+		errorMessages: [],
+		userData: {},
+	});
 });
 
 router.post('/register', async (req, res) => {
 	// TODO if users is already logged in redirect him to 404
-    const { username, email, password, repeatPassword } = req.body;
-    const result = await userDataValidation({ username, email, password, repeatPassword });
-	
-    try {
-        if (result.errors.length > 0) {
-            throw result.errors;
-        }
+	const { username, email, password, repeatPassword } = req.body;
+	const result = await registerValidation({
+		username,
+		email,
+		password,
+		repeatPassword,
+	});
 
-		await usersService.register(result.newUserData);
+	try {
+		if (result.errors.length > 0) {
+			throw result.errors;
+		}
+
+		await usersService.register(result.trimmedUserData);
 	} catch (error) {
 		const messages = extractErrorMessages(error);
 
@@ -28,7 +38,7 @@ router.post('/register', async (req, res) => {
 			pageTitle: 'Register',
 			path: '/register',
 			errorMessages: messages,
-			userData: result.newUserData,
+			userData: result.trimmedUserData,
 		});
 	}
 
@@ -36,20 +46,33 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-	res.render('users/login', { pageTitle: 'Login', path: '/login' });
+	res.render('users/login', {
+		pageTitle: 'Login',
+		path: '/login',
+		errorMessages: [],
+		userData: {},
+	});
 });
 
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body;
+    const result = loginValidation({ username, password });
 
 	try {
-		const token = await usersService.login(username, password);
+        if (result.errors.length > 0) {
+            throw result.errors;
+        }
+
+		const token = await usersService.login(result.trimmedUserData);
 		res.cookie('auth', token, { httpOnly: true });
 	} catch (error) {
-		//TODO: pass the error message in the view
-        const messages = extractErrorMessages(error);
-		console.log(messages);
-		return res.redirect('/users/login');
+		const messages = extractErrorMessages(error);
+		return res.render('users/login', {
+			pageTitle: 'Login',
+			path: '/login',
+			errorMessages: messages,
+			userData: result.trimmedUserData,
+		});
 	}
 
 	res.redirect('/');
