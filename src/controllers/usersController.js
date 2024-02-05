@@ -109,7 +109,9 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-	// TODO if user is logged out redirect him to 404
+    if (!req.user) {
+        return res.redirect('/404');
+    }
 
 	res.clearCookie('auth');
 	res.redirect('/');
