@@ -10,3 +10,5 @@ exports.update = (noteId, noteData) =>
 	Note.findByIdAndUpdate(noteId, noteData, { runValidators: true });
 
 exports.delete = (noteId) => Note.findByIdAndDelete(noteId);
+
+exports.getAuthor = (noteId) => Note.findById(noteId).select('author').lean();
