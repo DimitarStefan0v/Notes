@@ -34,7 +34,7 @@ router.post('/create', isAuth, async (req, res) => {
 	const noteData = {
 		title: req.body.title,
 		description: req.body.description,
-        author: req.user._id,
+		author: req.user._id,
 	};
 
 	const errors = [];
@@ -67,18 +67,29 @@ router.post('/create', isAuth, async (req, res) => {
 
 router.get('/:noteId/details', isAuth, async (req, res) => {
 	const note = await notesService.getById(req.params.noteId);
+	if (req.user._id !== note.author.toString()) {
+		return res.redirect('/404');
+	}
 
 	res.render('notes/details', { pageTitle: 'Note Details', path: '', note });
 });
 
 router.get('/:noteId/edit', isAuth, async (req, res) => {
 	const note = await notesService.getById(req.params.noteId);
+	if (req.user._id !== note.author.toString()) {
+		return res.redirect('/404');
+	}
 
 	res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
 });
 
 router.post('/:noteId/edit', isAuth, async (req, res) => {
 	const noteId = req.params.noteId;
+	const author = await notesService.getAuthor(noteId);
+	if (req.user._id !== author.author.toString()) {
+		return res.redirect('/404');
+	}
+
 	const { title, description } = req.body;
 	const note = { title, description };
 
@@ -97,8 +108,14 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 });
 
 router.get('/:noteId/delete', isAuth, async (req, res) => {
+	const noteId = req.params.noteId;
+	const author = await notesService.getAuthor(noteId);
+	if (req.user._id !== author.author.toString()) {
+		return res.redirect('/404');
+	}
+    
 	try {
-		await notesService.delete(req.params.noteId);
+		await notesService.delete(noteId);
 	} catch (error) {
 		console.log(error.message);
 		return res.redirect('/');
