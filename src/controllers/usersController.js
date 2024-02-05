@@ -61,6 +61,8 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+	// TODO if user is logged in redirect him to 404
+
 	res.render('users/login', {
 		pageTitle: 'Login',
 		path: '/login',
@@ -70,15 +72,28 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-	const { username, password } = req.body;
-    const result = loginValidation({ username, password });
+	// TODO if user is logged in redirect him to 404
+
+	const userData = {
+		username: req.body.username,
+		password: req.body.password,
+    };
+
+	const errors = [];
+
+	isRequired(userData.username)
+		? (userData.username = userData.username.trim())
+		: errors.push(ERROR_MESSAGES.REQUIRED('Username'));
+    isRequired(userData.password)
+        ? (userData.password = userData.password.trim())
+        : errors.push(ERROR_MESSAGES.REQUIRED('Password'));
 
 	try {
-        if (result.errors.length > 0) {
-            throw result.errors;
-        }
+		if (errors.length > 0) {
+			throw errors;
+		}
 
-		const token = await usersService.login(result.trimmedUserData);
+		const token = await usersService.login(userData);
 		res.cookie('auth', token, { httpOnly: true });
 	} catch (error) {
 		const messages = extractErrorMessages(error);
@@ -86,7 +101,7 @@ router.post('/login', async (req, res) => {
 			pageTitle: 'Login',
 			path: '/login',
 			errorMessages: messages,
-			userData: result.trimmedUserData,
+			userData,
 		});
 	}
 
