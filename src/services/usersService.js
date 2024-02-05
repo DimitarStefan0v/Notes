@@ -20,7 +20,7 @@ exports.register = async ({ username, email, password, repeatPassword }) => {
 };
 
 exports.login = async ({ username, password }) => {
-	const user = await User.findOne({ username });
+	const user = await User.findOne({ username }).lean();
 
 	if (!user) {
 		throw Error(ERROR_MESSAGES.INVALID_LOGIN);
