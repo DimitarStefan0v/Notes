@@ -1,29 +1,29 @@
 const express = require('express');
 
-const notesService = require('../services/notesService');
 const { isAuth } = require('../middlewares/authMiddleware');
+const notesService = require('../services/notesService');
+const { extractErrorMessages } = require('../utils/errorHelpers');
 
 const router = express.Router();
 
 router.get('/all', async (req, res) => {
-    const user = req.user;
-    let notes;
+	const user = req.user;
+	let notes;
 
-    if (!user) {
-        notes = {};
-    } else {
-        notes = await notesService.getAll(user._id);
-    }
+	if (!user) {
+		notes = {};
+	} else {
+		notes = await notesService.getAll(user._id);
+	}
 
 	res.render('notes/notes', { pageTitle: 'Notes', path: '/all', notes });
 });
 
 router.get('/create', isAuth, (req, res) => {
-	res.render('notes/create', { pageTitle: 'Create Note', path: '/create' });
+	res.render('notes/create', { pageTitle: 'Create Note', path: '/create', errorMessages: [] });
 });
 
 //TODO: creat isOwner middleware
-
 
 router.post('/create', isAuth, async (req, res) => {
 	const { title, description } = req.body;
@@ -31,8 +31,12 @@ router.post('/create', isAuth, async (req, res) => {
 	try {
 		await notesService.create({ title, description, author: req.user._id });
 	} catch (error) {
-		console.log(error.message);
-		return res.render('notes/create', { pageTitle: 'Create Note', path: '/create' });
+        const messages = extractErrorMessages(error);
+		return res.render('notes/create', {
+			pageTitle: 'Create Note',
+			path: '/create',
+            errorMessages: messages,
+		});
 	}
 
 	res.redirect('/notes/all');
@@ -58,8 +62,12 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 	try {
 		await notesService.update(noteId, note);
 	} catch (error) {
-        console.log(error.message);
-		return res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
+		console.log(error.message);
+		return res.render('notes/update', {
+			pageTitle: 'Update Note',
+			path: '',
+			note,
+		});
 	}
 
 	res.redirect('/notes/all');
