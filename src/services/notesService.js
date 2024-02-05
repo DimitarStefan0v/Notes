@@ -1,12 +1,6 @@
 const Note = require('../models/Note');
 
-exports.create = async (noteData) => {
-	const note = new Note(noteData);
-
-	await note.save();
-
-	return note;
-};
+exports.create = (noteData) => Note.create(noteData);
 
 exports.getAll = (userId) => Note.find({ author: userId}).lean();
 
