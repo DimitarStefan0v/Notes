@@ -75,12 +75,12 @@ router.get('/:noteId/details', isAuth, async (req, res) => {
 });
 
 router.get('/:noteId/edit', isAuth, async (req, res) => {
-	const note = await notesService.getById(req.params.noteId);
-	if (req.user._id !== note.author.toString()) {
+	const noteData = await notesService.getById(req.params.noteId);
+	if (req.user._id !== noteData.author.toString()) {
 		return res.redirect('/404');
 	}
 
-	res.render('notes/update', { pageTitle: 'Update Note', path: '', note });
+	res.render('notes/update', { pageTitle: 'Update Note', path: '', errorMessages: [], noteData });
 });
 
 router.post('/:noteId/edit', isAuth, async (req, res) => {
@@ -90,17 +90,33 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 		return res.redirect('/404');
 	}
 
-	const { title, description } = req.body;
-	const note = { title, description };
+	const noteData = {
+		title: req.body.title,
+		description: req.body.description,
+	};
+
+	const errors = [];
+
+	isRequired(noteData.title)
+		? (noteData.title = noteData.title.trim())
+		: errors.push(ERROR_MESSAGES.REQUIRED('Title'));
+	isRequired(noteData.description)
+		? (noteData.description = noteData.description.trim())
+		: errors.push(ERROR_MESSAGES.REQUIRED('Description'));
 
 	try {
-		await notesService.update(noteId, note);
+        if (errors.length > 0) {
+            throw errors;
+        }
+
+		await notesService.update(noteId, noteData);
 	} catch (error) {
-		console.log(error.message);
+		const messages = extractErrorMessages(error);
 		return res.render('notes/update', {
 			pageTitle: 'Update Note',
 			path: '',
-			note,
+            errorMessages: messages,
+			noteData,
 		});
 	}
 
@@ -113,7 +129,7 @@ router.get('/:noteId/delete', isAuth, async (req, res) => {
 	if (req.user._id !== author.author.toString()) {
 		return res.redirect('/404');
 	}
-    
+
 	try {
 		await notesService.delete(noteId);
 	} catch (error) {
