@@ -8,7 +8,9 @@ const { isRequired } = require('../utils/commonValidation');
 const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
 router.get('/register', (req, res) => {
-	// TODO if user is logged in redirect him to 404
+	if (req.user) {
+        return res.redirect('/users/logout');
+    }
 
 	res.render('users/register', {
 		pageTitle: 'Register',
@@ -19,7 +21,9 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	// TODO if user is logged in redirect him to 404
+	if (req.user) {
+        return res.redirect('/users/logout');
+    }
 
 	const userData = {
 		username: req.body.username,
@@ -61,7 +65,9 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-	// TODO if user is logged in redirect him to 404
+	if (req.user) {
+        return res.redirect('/users/logout');
+    }
 
 	res.render('users/login', {
 		pageTitle: 'Login',
@@ -72,7 +78,9 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-	// TODO if user is logged in redirect him to 404
+	if (req.user) {
+        return res.redirect('/users/logout');
+    }
 
 	const userData = {
 		username: req.body.username,
