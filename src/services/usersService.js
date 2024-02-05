@@ -3,9 +3,21 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const jwtPromises = require('../lib/jwt');
 const { ERROR_MESSAGES } = require('../utils/errorMessages');
+const { isUsernameAvailable, isEmailAvailable } = require('../utils/commonValidation');
 
-exports.register = ({ username, email, password, repeatPassword }) =>
-	User.create({ username, email, password, repeatPassword });
+exports.register = async ({ username, email, password, repeatPassword }) => {
+    const isNameAvailable = await isUsernameAvailable(username);
+    if (!isNameAvailable) {
+        throw Error(ERROR_MESSAGES.USERNAME_TAKEN);
+    }
+
+    const isMailAvailable = await isEmailAvailable(email);
+    if (!isMailAvailable) {
+        throw Error(ERROR_MESSAGES.EMAIL_TAKEN);
+    }
+
+	return User.create({ username, email, password, repeatPassword });
+};
 
 exports.login = async ({ username, password }) => {
 	const user = await User.findOne({ username });
