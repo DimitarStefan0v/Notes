@@ -6,7 +6,14 @@ const { isAuth } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 router.get('/all', async (req, res) => {
-	const notes = await notesService.getAll();
+    const user = req.user;
+    let notes;
+
+    if (!user) {
+        notes = {};
+    } else {
+        notes = await notesService.getAll(user._id);
+    }
 
 	res.render('notes/notes', { pageTitle: 'Notes', path: '/all', notes });
 });
