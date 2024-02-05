@@ -4,9 +4,12 @@ const router = express.Router();
 
 const usersService = require('../services/usersService');
 const { extractErrorMessages } = require('../utils/errorHelpers');
-const { registerValidation, loginValidation } = require('../utils/commonValidation');
+const { isRequired } = require('../utils/commonValidation');
+const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
 router.get('/register', (req, res) => {
+	// TODO if user is logged in redirect him to 404
+
 	res.render('users/register', {
 		pageTitle: 'Register',
 		path: '/register',
@@ -16,21 +19,33 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	// TODO if users is already logged in redirect him to 404
-	const { username, email, password, repeatPassword } = req.body;
-	const result = await registerValidation({
-		username,
-		email,
-		password,
-		repeatPassword,
-	});
+	// TODO if user is logged in redirect him to 404
+
+	const userData = {
+		username: req.body.username,
+		email: req.body.email,
+		password: req.body.password,
+		repeatPassword: req.body.repeatPassword,
+	};
+
+	const errors = [];
+
+	isRequired(userData.username)
+		? (userData.username = userData.username.trim())
+		: errors.push(ERROR_MESSAGES.REQUIRED('Username'));
+    isRequired(userData.email)
+        ? (userData.email = userData.email.trim())
+        : errors.push(ERROR_MESSAGES.REQUIRED('Email'));
+    isRequired(userData.password)
+        ? (userData.password = userData.password.trim())
+        : errors.push(ERROR_MESSAGES.REQUIRED('Password'));
 
 	try {
-		if (result.errors.length > 0) {
-			throw result.errors;
+		if (errors.length > 0) {
+			throw errors;
 		}
 
-		await usersService.register(result.trimmedUserData);
+		await usersService.register(userData);
 	} catch (error) {
 		const messages = extractErrorMessages(error);
 
@@ -38,7 +53,7 @@ router.post('/register', async (req, res) => {
 			pageTitle: 'Register',
 			path: '/register',
 			errorMessages: messages,
-			userData: result.trimmedUserData,
+			userData,
 		});
 	}
 
@@ -79,6 +94,8 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+	// TODO if user is logged out redirect him to 404
+
 	res.clearCookie('auth');
 	res.redirect('/');
 });
