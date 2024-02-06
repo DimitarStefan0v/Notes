@@ -18,7 +18,7 @@ const noteSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'User',
 	},
-});
+}, { timestamps: true });
 
 const Note = mongoose.model('Note', noteSchema);
 
