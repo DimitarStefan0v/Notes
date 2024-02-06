@@ -6,6 +6,7 @@ exports.getAll = (userId, page, itemsPerPage) =>
 	Note.find({ author: userId })
 		.skip((page - 1) * itemsPerPage)
 		.limit(itemsPerPage)
+        .sort({ 'createdAt': 'desc' })
 		.lean();
 
 exports.getById = (noteId) => Note.findById(noteId).lean();
