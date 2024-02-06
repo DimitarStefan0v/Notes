@@ -2,7 +2,11 @@ const Note = require('../models/Note');
 
 exports.create = (noteData) => Note.create(noteData);
 
-exports.getAll = (userId) => Note.find({ author: userId}).lean();
+exports.getAll = (userId, page, itemsPerPage) =>
+	Note.find({ author: userId })
+		.skip((page - 1) * itemsPerPage)
+		.limit(itemsPerPage)
+		.lean();
 
 exports.getById = (noteId) => Note.findById(noteId).lean();
 
