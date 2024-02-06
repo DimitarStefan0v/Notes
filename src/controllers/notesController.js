@@ -19,7 +19,12 @@ router.get('/all', async (req, res) => {
 			notes: {},
 		});
 	}
-	const totalNotes = await notesService.getCount(user._id);
+    
+	let totalNotes = await notesService.getCount(user._id);
+    if (totalNotes === 0) {
+        totalNotes = 1;
+    }
+
     const lastPage = Math.ceil(totalNotes / ITEMS_PER_PAGE);
 
 	let page = Number(req.query.page || 1);
@@ -29,9 +34,6 @@ router.get('/all', async (req, res) => {
     } 
 
 	const notes = await notesService.getAll(user._id, page, ITEMS_PER_PAGE);
-
-	console.log('notes ', totalNotes);
-	console.log('page', page);
 
 	res.render('notes/notes', {
 		pageTitle: 'Notes',
