@@ -16,3 +16,5 @@ exports.update = (noteId, noteData) =>
 exports.delete = (noteId) => Note.findByIdAndDelete(noteId);
 
 exports.getAuthor = (noteId) => Note.findById(noteId).select('author').lean();
+
+exports.getCount = (userId) => Note.find({ author: userId }).countDocuments().lean();
