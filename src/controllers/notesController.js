@@ -8,17 +8,39 @@ const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
 const router = express.Router();
 
+const ITEMS_PER_PAGE = 12;
+
 router.get('/all', async (req, res) => {
 	const user = req.user;
-	let notes;
-
 	if (!user) {
-		notes = {};
-	} else {
-		notes = await notesService.getAll(user._id);
+		return res.render('notes/notes', {
+			pageTitle: 'Notes',
+			path: '/all',
+			notes: {},
+		});
 	}
+	const totalNotes = await notesService.getCount(user._id);
+    const lastPage = Math.ceil(totalNotes / ITEMS_PER_PAGE);
 
-	res.render('notes/notes', { pageTitle: 'Notes', path: '/all', notes });
+	let page = Number(req.query.page || 1);
+
+
+	const notes = await notesService.getAll(user._id, page, ITEMS_PER_PAGE);
+
+	console.log('notes ', totalNotes);
+	console.log('page', page);
+
+	res.render('notes/notes', {
+		pageTitle: 'Notes',
+		path: '/all',
+		notes,
+		currentPage: page,
+        hasPreviousPage: page > 1,
+        hasNextPage: page < lastPage,
+        previousPage: page - 1,
+        nextPage: page + 1,
+        lastPage,
+	});
 });
 
 router.get('/create', isAuth, (req, res) => {
@@ -80,7 +102,12 @@ router.get('/:noteId/edit', isAuth, async (req, res) => {
 		return res.redirect('/404');
 	}
 
-	res.render('notes/update', { pageTitle: 'Update Note', path: '', errorMessages: [], noteData });
+	res.render('notes/update', {
+		pageTitle: 'Update Note',
+		path: '',
+		errorMessages: [],
+		noteData,
+	});
 });
 
 router.post('/:noteId/edit', isAuth, async (req, res) => {
@@ -105,9 +132,9 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 		: errors.push(ERROR_MESSAGES.REQUIRED('Description'));
 
 	try {
-        if (errors.length > 0) {
-            throw errors;
-        }
+		if (errors.length > 0) {
+			throw errors;
+		}
 
 		await notesService.update(noteId, noteData);
 	} catch (error) {
@@ -115,7 +142,7 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 		return res.render('notes/update', {
 			pageTitle: 'Update Note',
 			path: '',
-            errorMessages: messages,
+			errorMessages: messages,
 			noteData,
 		});
 	}
