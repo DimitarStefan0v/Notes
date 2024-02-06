@@ -24,6 +24,9 @@ router.get('/all', async (req, res) => {
 
 	let page = Number(req.query.page || 1);
 
+    if (Number.isNaN(page) || page < 1 || page > lastPage) {
+        return res.redirect('/404');
+    } 
 
 	const notes = await notesService.getAll(user._id, page, ITEMS_PER_PAGE);
 
