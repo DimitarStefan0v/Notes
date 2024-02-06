@@ -78,6 +78,33 @@
     font-weight: bold;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 0.4rem;
+    color: inherit;
+}
+
+.pagination .active {
+    background-color: black;
+    color: yellow;
+    pointer-events: none;
+    cursor: default;
+}
+
+.pages-info {
+    text-align: center;
+}
+
+
+
 @media (min-width: 400px) {
     .heading {
         justify-content: space-between;
