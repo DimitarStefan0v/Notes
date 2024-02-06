@@ -29,6 +29,28 @@
                                 </div>
                                 <% } %>
                         </div>
+
+                        <p class="pages-info">Page <%= currentPage %> out of <%= lastPage %></p>
+                        <section class="pagination">
+                            <% if (hasPreviousPage && previousPage > 1) { %>
+                                <a href="/notes/all?page=1"><<</a>
+                            <% } %>
+
+                            <% if (hasPreviousPage) { %>
+                                <a href="/notes/all?page=<%= previousPage %>"><</a>
+                            <% } %>
+
+                            <a href="/notes/all?page=<%= currentPage %>" class="active"><%= currentPage %></a>
+
+                            <% if (hasNextPage) { %>
+                                <a href="/notes/all?page=<%= nextPage %>">></a>
+                            <% } %>
+
+                            <% if (hasNextPage && nextPage < lastPage) { %>
+                                <a href="/notes/all?page=<%= lastPage %>">>></a>
+                            <% } %>
+                        </section>
+
                         <% } else { %>
                             <p class="notes-info">You don't have any notes yet!</p>
                             <% } %>
