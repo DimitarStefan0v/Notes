@@ -11,8 +11,10 @@ html {
 body {
     padding: 0;
     margin: 0;
-    height: 100%;
     background-color: rgb(115, 205, 98);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 body, input, textarea, button {
@@ -27,6 +29,7 @@ ul {
 main {
     height: 100%;
     max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
     padding: 1rem;
     display: flex;
@@ -146,6 +149,7 @@ main {
 .footer {
     background-color: black;
     height: 4rem;
+    margin-top: auto;
 }
 
 .footer ul {
