@@ -15,6 +15,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 body, input, textarea, button {
@@ -135,6 +136,7 @@ main {
 .main-nav {
     background-color: black;
     height: 4rem;
+    z-index: 3;
 }
 
 .nav-wrapper {
@@ -172,7 +174,6 @@ main {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    z-index: 2;
 }
 
 .nav-links__item a {
@@ -185,7 +186,14 @@ main {
     border-bottom: 3px solid yellow;
 }
 
-
+#backdrop {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
 
 @media (min-width: 650px) {
     .nav-wrapper-mobile {
