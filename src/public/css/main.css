@@ -78,49 +78,6 @@ main {
     word-break: break-all;
 }
 
-
-
-
-
-.main-nav {
-    background-color: black;
-    height: 4rem;
-}
-
-.nav-wrapper {
-    height: 100%;
-    max-width: 1168px;
-    padding: 1rem;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.note-img {
-    height: 55px;
-}
-
-.nav-links {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.1rem;
-    list-style-type: none;
-}
-
-.nav-links__item a {
-    color: white;
-    text-decoration: none;
-}
- 
-.nav-links__item .active {
-    color: yellow;
-    border-bottom: 3px solid yellow;
-}
-
 .create-btn {
     background-color: black;
     border-radius: 40px;
@@ -168,4 +125,84 @@ main {
 
 .footer a:hover {
     color: yellow;
+}
+
+.note-img {
+    height: 55px;
+}
+
+
+.main-nav {
+    background-color: black;
+    height: 4rem;
+}
+
+.nav-wrapper {
+    display: none;
+}
+
+.nav-wrapper-mobile {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.hamburger-menu {
+    width: 4rem;
+    cursor: pointer;
+}
+
+.hamburger-menu img {
+    width: 100%;
+}
+
+.nav-links {
+    font-size: 1.1rem;
+    list-style-type: none;
+    display: none;
+
+    /* height: 100%; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* gap: 1rem; */
+}
+
+.nav-links__item a {
+    color: white;
+    text-decoration: none;
+}
+ 
+.nav-links__item .active {
+    color: yellow;
+    border-bottom: 3px solid yellow;
+}
+
+
+
+@media (min-width: 650px) {
+    .nav-wrapper-mobile {
+        display: none;
+    }
+
+    .nav-wrapper {
+        height: 100%;
+        max-width: 1168px;
+        padding: 1rem;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .nav-links {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+        list-style-type: none;
+    }
 }
