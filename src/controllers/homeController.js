@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/contacts', (req, res) => {
-    res.render('home/contacts', { pageTitle: 'Contacts', path: '/contacts' });
+    res.render('home/contacts', { pageTitle: 'Contacts', path: '/contacts', errorMessages: [] });
 });
 
 module.exports = router;
