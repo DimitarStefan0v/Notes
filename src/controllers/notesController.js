@@ -3,8 +3,6 @@ const express = require('express');
 const { isAuth } = require('../middlewares/authMiddleware');
 const notesService = require('../services/notesService');
 const { extractErrorMessages } = require('../utils/errorHelpers');
-const { isRequired } = require('../utils/commonValidation');
-const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
 const router = express.Router();
 
@@ -19,19 +17,19 @@ router.get('/all', async (req, res) => {
 			notes: {},
 		});
 	}
-    
-	let totalNotes = await notesService.getCount(user._id);
-    if (totalNotes === 0) {
-        totalNotes = 1;
-    }
 
-    const lastPage = Math.ceil(totalNotes / ITEMS_PER_PAGE);
+	let totalNotes = await notesService.getCount(user._id);
+	if (totalNotes === 0) {
+		totalNotes = 1;
+	}
+
+	const lastPage = Math.ceil(totalNotes / ITEMS_PER_PAGE);
 
 	let page = Number(req.query.page || 1);
 
-    if (Number.isNaN(page) || page < 1 || page > lastPage) {
-        return res.redirect('/404');
-    } 
+	if (Number.isNaN(page) || page < 1 || page > lastPage) {
+		return res.redirect('/404');
+	}
 
 	const notes = await notesService.getAll(user._id, page, ITEMS_PER_PAGE);
 
@@ -40,11 +38,11 @@ router.get('/all', async (req, res) => {
 		path: '/all',
 		notes,
 		currentPage: page,
-        hasPreviousPage: page > 1,
-        hasNextPage: page < lastPage,
-        previousPage: page - 1,
-        nextPage: page + 1,
-        lastPage,
+		hasPreviousPage: page > 1,
+		hasNextPage: page < lastPage,
+		previousPage: page - 1,
+		nextPage: page + 1,
+		lastPage,
 	});
 });
 
@@ -64,20 +62,7 @@ router.post('/create', isAuth, async (req, res) => {
 		author: req.user._id,
 	};
 
-	const errors = [];
-
-	isRequired(noteData.title)
-		? (noteData.title = noteData.title.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Title'));
-	isRequired(noteData.description)
-		? (noteData.description = noteData.description.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Description'));
-
 	try {
-		if (errors.length > 0) {
-			throw errors;
-		}
-
 		await notesService.create(noteData);
 	} catch (error) {
 		const messages = extractErrorMessages(error);
@@ -127,20 +112,7 @@ router.post('/:noteId/edit', isAuth, async (req, res) => {
 		description: req.body.description,
 	};
 
-	const errors = [];
-
-	isRequired(noteData.title)
-		? (noteData.title = noteData.title.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Title'));
-	isRequired(noteData.description)
-		? (noteData.description = noteData.description.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Description'));
-
 	try {
-		if (errors.length > 0) {
-			throw errors;
-		}
-
 		await notesService.update(noteId, noteData);
 	} catch (error) {
 		const messages = extractErrorMessages(error);

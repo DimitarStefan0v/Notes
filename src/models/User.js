@@ -6,6 +6,7 @@ const { ERROR_MESSAGES } = require('../utils/errorMessages');
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
+        trim: true,
         unique: true,
 		required: [true, ERROR_MESSAGES.REQUIRED('Username')],
 		minLength: [5, ERROR_MESSAGES.MIN_LENGTH('Username', 5)],
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
 	},
 	email: {
 		type: String,
+        trim: true,
 		required: [true, ERROR_MESSAGES.REQUIRED('Email')],
 		validate: {
 			validator: function (value) {
@@ -26,6 +28,7 @@ const userSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
+        trim: true,
 		required: [true, ERROR_MESSAGES.REQUIRED('Password')],
 		minLength: [6, ERROR_MESSAGES.MIN_LENGTH('Password', 6)],
 	},

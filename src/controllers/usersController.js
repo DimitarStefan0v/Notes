@@ -4,8 +4,6 @@ const router = express.Router();
 
 const usersService = require('../services/usersService');
 const { extractErrorMessages } = require('../utils/errorHelpers');
-const { isRequired } = require('../utils/commonValidation');
-const { ERROR_MESSAGES } = require('../utils/errorMessages');
 
 router.get('/register', (req, res) => {
 	if (req.user) {
@@ -32,23 +30,7 @@ router.post('/register', async (req, res) => {
 		repeatPassword: req.body.repeatPassword,
 	};
 
-	const errors = [];
-
-	isRequired(userData.username)
-		? (userData.username = userData.username.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Username'));
-    isRequired(userData.email)
-        ? (userData.email = userData.email.trim())
-        : errors.push(ERROR_MESSAGES.REQUIRED('Email'));
-    isRequired(userData.password)
-        ? (userData.password = userData.password.trim())
-        : errors.push(ERROR_MESSAGES.REQUIRED('Password'));
-
 	try {
-		if (errors.length > 0) {
-			throw errors;
-		}
-
 		await usersService.register(userData);
 	} catch (error) {
 		const messages = extractErrorMessages(error);
@@ -87,20 +69,7 @@ router.post('/login', async (req, res) => {
 		password: req.body.password,
     };
 
-	const errors = [];
-
-	isRequired(userData.username)
-		? (userData.username = userData.username.trim())
-		: errors.push(ERROR_MESSAGES.REQUIRED('Username'));
-    isRequired(userData.password)
-        ? (userData.password = userData.password.trim())
-        : errors.push(ERROR_MESSAGES.REQUIRED('Password'));
-
 	try {
-		if (errors.length > 0) {
-			throw errors;
-		}
-
 		const token = await usersService.login(userData);
 		res.cookie('auth', token, { httpOnly: true });
 	} catch (error) {
