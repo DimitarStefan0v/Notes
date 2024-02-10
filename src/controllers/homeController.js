@@ -39,6 +39,11 @@ router.post('/contacts', (req, res) => {
 			throw errors;
 		}
 
+        if (emailContent.message.length < 10) {
+            errors.push(ERROR_MESSAGES.MIN_LENGTH('Message content', 10));
+            throw errors;
+        }
+
         
 		// TODO send email if there are no errors
 	} catch (error) {
