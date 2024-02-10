@@ -44,6 +44,11 @@ router.post('/contacts', (req, res) => {
             throw errors;
         }
 
+        const isEmailValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(emailContent.email);
+        if (!isEmailValid) {
+            errors.push(ERROR_MESSAGES.EMAIL_REGEX);
+            throw errors;
+        }
         
 		// TODO send email if there are no errors
 	} catch (error) {
