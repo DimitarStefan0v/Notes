@@ -7,7 +7,18 @@ router.get('/', (req, res) => {
 });
 
 router.get('/contacts', (req, res) => {
-    res.render('home/contacts', { pageTitle: 'Contacts', path: '/contacts', errorMessages: [] });
+	res.render('home/contacts', {
+		pageTitle: 'Contacts',
+		path: '/contacts',
+		errorMessages: [],
+	});
+});
+
+router.post('/contacts', (req, res) => {
+	const { email, message } = req.body;
+    console.log(email, message);
+
+    res.redirect('/');
 });
 
 module.exports = router;
