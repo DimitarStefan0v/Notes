@@ -15,9 +15,9 @@
             <li class="nav-links__item">
                 <a class="<%= path === '/create' ? 'active' : '' %>" href="/notes/create">Add</a>
             </li>
-            <li class="nav-links__item">
+            <!-- <li class="nav-links__item">
                 <a class="<%= path === '/contacts' ? 'active' : '' %>" href="/contacts">Contacts</a>
-            </li>
+            </li> -->
         </ul>
         <ul class="nav-links users">
             <% if (isAuthenticated) { %>
@@ -52,9 +52,9 @@
             <li class="nav-links__item">
                 <a class="<%= path === '/create' ? 'active' : '' %>" href="/notes/create">Add</a>
             </li>
-            <li class="nav-links__item">
+            <!-- <li class="nav-links__item">
                 <a class="<%= path === '/contacts' ? 'active' : '' %>" href="/contacts">Contacts</a>
-            </li>
+            </li> -->
             <% if (isAuthenticated) { %>
                 <li class="nav-links__item">
                     <a class="<%= path === '/logout' ? 'active' : '' %>" href="/users/logout">Logout</a>
