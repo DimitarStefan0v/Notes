@@ -1,5 +1,3 @@
-const path = require('path');
-
 const express = require('express');
 
 const expressConfig = require('./config/expressConfig');
@@ -8,7 +6,6 @@ const dbConnect = require('./config/dbConfig');
 const routes = require('./routes');
 
 const app = express();
-const PORT = 5000;
 
 ejsConfig(app);
 expressConfig(app);
@@ -19,4 +16,4 @@ dbConnect()
 
 app.use(routes);
 
-app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));
+app.listen(process.env.PORT || 5000, () => console.log(`Server is running on PORT ${process.env.PORT || 5000}`));
