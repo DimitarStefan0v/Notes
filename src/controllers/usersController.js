@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
 		});
 	}
 
-	res.redirect('/');
+	res.redirect('/users/login');
 });
 
 router.get('/login', (req, res) => {

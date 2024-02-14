@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb://localhost:27017/notesDb';
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.lx44xiq.mongodb.net/${process.env.DB_NAME}`;
 
 async function dbConnect() {
 	await mongoose.connect(uri);
