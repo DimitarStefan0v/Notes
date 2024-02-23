@@ -167,6 +167,7 @@ main {
     height: 5px;
     margin: 8px 0 8px 0;
     border-radius: 4px;
+    transition: all 0.3s ease-in-out;
 }
 
 #hamburger-menu.visible .bar {
@@ -184,21 +185,23 @@ main {
 #hamburger-menu.visible .bar:nth-child(2) {
     opacity: 0;
 }
-
+    
 #nav-links-mobile {
     font-size: 1.1rem;
     list-style-type: none;
-    display: none;
+    display: flex;
+    width: 154px;
     background-color: black;
     padding: 1rem 4rem 4rem 1rem;
     border-bottom-right-radius: 8px;
     position: absolute;
-    left: 0;
+    left: -154px;
     top: 60px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-links__item a {
