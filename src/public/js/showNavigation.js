@@ -3,19 +3,22 @@ const links = document.getElementById('nav-links-mobile');
 const backdrop = document.getElementById('backdrop');
 
 menuBtn.addEventListener('click', () => {
-	if (menuBtn.classList.contains('toggle')) {
-		menuBtn.classList.remove('toggle');
-		links.style.display = 'none';
-		backdrop.style.display = 'none';
-	} else {
-		menuBtn.classList.add('toggle');
+	menuBtn.classList.toggle('visible');
+
+	if (menuBtn.classList.contains('visible')) {
 		links.style.display = 'flex';
 		backdrop.style.display = 'block';
+	} else {
+		links.style.display = 'none';
+		backdrop.style.display = 'none';
 	}
 });
 
 backdrop.addEventListener('click', () => {
-	menuBtn.classList.remove('toggle');
-	links.style.display = 'none';
 	backdrop.style.display = 'none';
+
+	if (menuBtn.classList.contains('visible')) {
+		menuBtn.classList.remove('visible');
+		links.style.display = 'none';
+	}
 });
