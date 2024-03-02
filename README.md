@@ -3,7 +3,7 @@
 
 ## :pencil: Project Description 
 
-**_Note-taking app_** developed with Node.js, Express, and MongoDB, utilizing EJS as the templating engine. This project incorporates JWT authentication to secure user sessions. Once authenticated, users are empowered to perform CRUD operations on their notes, providing a seamless and secure note management experience
+**Note-taking app** developed with **Node.js**, **Express**, and **MongoDB**, utilizing **EJS** as the templating engine. This project incorporates **JWT authentication** to secure user sessions. Once authenticated, users are empowered to perform **CRUD** operations on their notes, providing a seamless and secure note management experience.
 
 
 ## Screenshots:
